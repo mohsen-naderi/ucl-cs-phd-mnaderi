@@ -1,0 +1,367 @@
+%#######################################################################################################################
+% PhD Thesis
+% Department of Computer Science
+% University College London
+%
+% Mohsen Naderi (mohsen@mnaderi.com)
+%#######################################################################################################################
+
+\documentclass[oneside,british,phd]{ucl_thesis}
+
+\newif\ifdraftheading
+%\draftheadingtrue
+
+\newif\ifthesisdraft
+%\thesisdrafttrue
+
+\ifthesisdraft
+  \draftheadingtrue
+\fi
+\usepackage{graphicx}
+
+\usepackage{ifxetex,ifluatex}
+\newif\ifxetexorluatex
+\ifxetex
+  \xetexorluatextrue
+\else
+  \ifluatex
+    \xetexorluatextrue
+  \fi
+\fi
+
+\ifxetex
+  \usepackage{fontspec}
+  \usepackage[T1]{fontenc}
+\else
+  \usepackage{lmodern}
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\fi
+
+%Before others to prevent option clash
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage[chapter]{algorithm}
+\usepackage{algorithmic}
+\usepackage{amssymb}
+\usepackage{bbding} %symbols
+\usepackage[
+        backend=biber,
+        bibencoding=utf8,
+        bibstyle=authortitle,
+        citestyle=authoryear,
+        dashed=false,
+        isbn=false,
+        doi=false,
+        eprint=false,
+        maxcitenames=2,
+        maxbibnames=5,
+        minbibnames=5,
+        backref=\ifdraftheading true \else false \fi,
+        sorting=nyt
+    ]{biblatex}
+\usepackage{booktabs}
+\usepackage{comment}
+\usepackage{datetime}
+\usepackage{enumitem}
+\usepackage{eurosym} %symbols
+\usepackage{float}
+% glossaries package not working, needs manual build steps
+% see https://tex.stackexchange.com/questions/43759/printglossaries-is-not-generating-anything-for-me
+\usepackage{graphicx}
+\usepackage[none]{hyphenat}
+\usepackage[left, pagewise, modulo]{lineno}
+\usepackage{lipsum}
+\usepackage{listings}
+\usepackage{nameref}
+\usepackage{pageslts}
+%\usepackage{pdflscape} %for landscape tables
+%\usepackage{pdfpages} %allows inserting pdf pages into latex
+\usepackage{perpage}
+\usepackage{setspace}
+\usepackage{subcaption}
+\usepackage{rotating}
+\usepackage[most]{tcolorbox}
+\usepackage{textcomp}
+\usepackage{tocloft}
+\ifthesisdraft
+  \usepackage[
+        colorinlistoftodos,
+        textsize=\scriptesize
+    ]{todonotes}
+\else
+  \usepackage[disable]{todonotes} % notes not showed
+\fi
+%usepackage{fixme} % more features than todonotes
+\usepackage{url}
+\usepackage{xargs} % Use more than one optional parameter in a new commands
+\ifdraftheading
+  \usepackage[printwatermark=true]{xwatermark}
+\fi
+%hyperref should be last package
+\usepackage[
+        unicode=true,
+        bookmarks=true,
+        bookmarksnumbered=false,
+        bookmarksopen=false,
+        breaklinks=false,
+        pdfborder={0 0 1},
+        colorlinks=false,
+        %for colorlinks=true
+        urlcolor=blue,
+        linkcolor=red,
+        %for colorlinks=false
+        pdfborderstyle={/S/D/D[3 2]/W 1},%pdfborderstyle={/S/U/W 1},
+        linkbordercolor=red
+    ]{hyperref}
+\usepackage{graphicx}
+
+%-----------------------------------------------------------------------------------------------------------------------
+%\pdfsuppresswarningpagegroup=1
+%-----------------------------------------------------------------------------------------------------------------------
+
+%%%
+%%% package biblatex
+%%%
+\addbibresource{bib/financial-computing.bib}
+\addbibresource{bib/event-processing.bib}
+
+%%%
+%%% package datetime
+%%%
+\yyyymmdddate
+\usdate
+
+%%%
+%%% package enumerate
+%%%
+%\setlist[2]{noitemsep} % sets the itemsep and parsep for all level two lists to 0
+%\setenumerate{noitemsep} % sets no itemsep for enumerate lists only
+
+%%%
+%%% package graphicx
+%%%
+\graphicspath{{.}{images/}{../images/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}   
+
+%%%
+%%% package hyperref
+%%%
+\hypersetup{pdftitle={PhD Thesis}, pdfauthor={Mohsen Naderi}}
+
+%%%
+%%% package lineno
+%%%
+%\linenumbers
+
+%%%
+%%% package listings
+%%%
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  columns=fullflexible,
+  showstringspaces=false,
+  commentstyle=\color{gray}\upshape
+}
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{blue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+\lstdefinelanguage{json}
+{
+  morestring       =[b]",
+  morestring       =[d]',
+  morestring       =[s]{"}{"}
+  stringstyle      =\color{black}
+  showstringspaces = false,
+  keywords         = {false,true},
+  basicstyle       = \ttfamily\small,
+  keywordstyle     = \ttfamily\bfseries\color{blue},
+}
+
+%%%
+%%% package setspace
+%%%
+%\setstretch{1.5}
+
+%%%
+%%% package tcolorbox
+%%%
+\tcbset{
+    frame code={}
+    center title,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colback=gray!30,
+    colframe=white,
+    width=\dimexpr\textwidth\relax,
+    enlarge left by=0mm,
+    boxsep=5pt,
+    arc=0pt,outer arc=0pt,
+    }
+\tcbuselibrary{breakable}
+
+%\begin{boxed}{Title of the Box}
+%This is the text formatted by the boxed environment
+%\end{boxed}
+
+%See also
+%https://tex.stackexchange.com/questions/21227/example-environment
+
+\ifthesisdraft
+  \newtcolorbox{mynotes}[2][]{colback=red!5!white,
+    colframe=red!75!black,fonttitle=\bfseries,
+    colbacktitle=red!85!black,enhanced,
+    attach boxed title to top center={yshift=-2mm},
+    title=#2,breakable,#1}
+  \newtcolorbox{forlaternotes}[2][]{colback=blue!5!white,
+    colframe=blue!75!black,fonttitle=\bfseries,
+    colbacktitle=blue!85!black,enhanced,
+    attach boxed title to top center={yshift=-2mm},
+    title=#2,breakable,#1}
+\else
+  \excludecomment{mynotes}
+  \excludecomment{forlaternotes}
+\fi
+
+%%%
+%%% package tocloft
+%%%
+\renewcommand\cftchapafterpnum{\vskip-1pt}
+\renewcommand\cftsecafterpnum{\vskip-3pt}
+\renewcommand\cftsubsecafterpnum{\vskip-3pt}
+
+%%%
+%%% package todonotes
+%%%
+\newcommandx{\fixme}[2][1=]{\todo[inline,backgroundcolor=brown!25,#1]{TODO: #2}}
+\newcommandx{\findbib}[2][1=]{\todo[linecolor=brown,backgroundcolor=brown!25,color=brown!40,#1]{REF: #2}}
+\newcommandx{\mohsen}[2][1=]{\todo[inline,linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{M: #2}}
+\newcommandx{\philip}[2][1=]{\todo[inline,linecolor=blue,backgroundcolor=blue!25,bordercolor=Plum,caption={Philip: #2},#1]{#2}}
+\newcommandx{\piotr}[2][1=]{\todo[inline,linecolor=blue,backgroundcolor=blue!25,bordercolor=Plum,caption={Piotr: #2},#1]{#2}}
+
+%-----------------------------------------------------------------------------------------------------------------------
+%numbers up to subsubsection
+%\setcounter{secnumdepth}{3}
+%only show up to subsection in table of content
+\setcounter{tocdepth}{2}
+% more compact table of content
+%\setlength\cftbeforechapskip{1pt}
+%\renewcommand\cftchapafterpnum{\vskip 0pt}
+%\renewcommand\cftsecafterpnum{\vskip -4pt}
+%\renewcommand\cftsubsecafterpnum{\vskip -4pt}
+
+%-----------------------------------------------------------------------------------------------------------------------
+\renewcommand{\UrlFont}{\footnotesize}
+%\DefineBibliographyStrings{english}{%
+  %backrefpage = {page},% originally "cited on page"
+  %backrefpages = {pages},% originally "cited on pages"
+%}
+\DeclareFieldFormat{url}{\newline\mkbibacro{URL}\addcolon\space\url{#1}}
+%\newbibmacro*{url+urldate}{%
+% \printfield[url]{url}%
+% \iffieldundef{urlyear}
+% {}
+% {\setunit*{\addspace}%
+% \printtext[urldate]{\printurldate}}}
+
+\makeatletter
+\makeatother
+
+%=======================================================================================================================
+\begin{document}
+%=======================================================================================================================
+
+\pagenumbering{arabic}
+
+\ifdraftheading
+  \newwatermark[
+    allpages=true,
+    angle=0,
+    align=center,
+    textcolor=magenta!40,
+    fontsize=12pt,
+    xpos=.1\paperwidth,
+    ypos=.4\paperheight
+  ]{MN Thesis Draft, \today -- \currenttime~P.~\thepage/\lastpageref*{LastPages}}
+\fi
+
+%\frontmatter
+
+\title{Market Agents and Flash Crashes}
+\author{Mohsen Naderi}
+\date{\today}
+
+\maketitle
+
+%-----------------------------------------------------------------------------------------------------------------------
+% preamble includes
+%-----------------------------------------------------------------------------------------------------------------------
+
+\include{mnaderi-phd-info-declaration}
+\include{mnaderi-phd-info-abstract}
+\include{mnaderi-phd-info-acknowledgements}
+
+%-----------------------------------------------------------------------------------------------------------------------
+% Table of Contents
+%-----------------------------------------------------------------------------------------------------------------------
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Contents}
+\tableofcontents
+\philip{compact}
+
+%-----------------------------------------------------------------------------------------------------------------------
+% List of Figures
+%-----------------------------------------------------------------------------------------------------------------------
+\clearpage
+\listoffigures
+%-----------------------------------------------------------------------------------------------------------------------
+% List of Tables
+%-----------------------------------------------------------------------------------------------------------------------
+\clearpage
+\listoftables
+
+%-----------------------------------------------------------------------------------------------------------------------
+% Chapters
+%-----------------------------------------------------------------------------------------------------------------------
+%\mainmatter
+
+%\setcounter{footnote}{0}
+
+\include{mnaderi-phd-chap-intro}
+\include{mnaderi-phd-chap-background}
+\include{mnaderi-phd-chap-platform}
+\include{mnaderi-phd-chap-multiagent}
+\include{mnaderi-phd-chap-population}
+\include{mnaderi-phd-chap-controls}
+\include{mnaderi-phd-chap-interaction}
+\include{mnaderi-phd-chap-conclusion}
+
+%-----------------------------------------------------------------------------------------------------------------------
+%\backmatter
+%-----------------------------------------------------------------------------------------------------------------------
+%\appendix
+%\include{mnaderi-phd-apdx-marketdata}
+%\include{mnaderi-phd-apdx-etrading}
+
+\printbibliography[heading=bibintoc]
+
+%-----------------------------------------------------------------------------------------------------------------------
+% Notes
+%-----------------------------------------------------------------------------------------------------------------------
+\ifthesisdraft
+  \include{mnaderi-phd-notes}
+\fi
+
+%=======================================================================================================================
+\end{document}
+%=======================================================================================================================
